@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import argparse
 import math
+import torch.utils.data as data
 
 parser = argparse.ArgumentParser(description='End to End Memory Networks - PyTorch. Copyright:errdaychill')
 
@@ -40,7 +41,7 @@ parser.add_argument('--print',
                     default=True,
                     help='print the progress(default:True)')
 
-
-
+train_loader = data.DataLoader(batch_size='--batch-size')
+test_loader = data.DataLoader(batch_size='--batch-size')
 
 
