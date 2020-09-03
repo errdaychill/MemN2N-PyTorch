@@ -1,47 +1,56 @@
-import torch 
-import torch.nn as nn
 import argparse
-import math
-import torch.utils.data as data
+from train import Trainer
 
 parser = argparse.ArgumentParser(description='End to End Memory Networks - PyTorch. Copyright:errdaychill')
 
-parser.add_argument('--num-epoch',
+parser.add_argument('--decay_ratio',
                     type=int,
-                    default=100,
-                    help='number of iterations to train(default:100)')
+                    default=2,
+                    help='decay ratio (default : 2)')
 
-parser.add_argument('--batch-size',
+parser.add_argument('--use_cuda',
+                    action='store_true',
+                    default=True,
+                    help='Usage of Cuda (default : True)')
+
+parser.add_argument('--batch_size',
                     type=int,
                     default=32,
-                    help='number of batch size(default:32)')
+                    help='number of batch size (default : 32) ')
 
-parser.add_argument('--num-hop',
+parser.add_argument('--embed_dim',
+                    type=int,
+                    default=20,
+                    help='size of embedding dimension (default : 20) ')
+
+
+parser.add_argument('--data_dir',
+                    type=str,
+                    default="data/tasks_1-20_v1-2/en/",
+                    help='data directory : "data/tasks_1-20_v1-2/en"' )
+
+parser.add_argument('--task_id',
+                    type=int,
+                    default=1,
+                    help='task number (default : 1)')
+
+parser.add_argument('--learning_rate',
+                    type=int,
+                    default=0.01,
+                    help='learning rate (default : 0.01)')
+
+parser.add_argument('--num_hop',
                     type=int,
                     default=3,
-                    help='number of hops(default:3)')
+                    help='number of hops (default : 3)')
 
-parser.add_argument('--mem-size',
+parser.add_argument('--epoch',
                     type=int,
                     default=100,
-                    help='value of memory embedding size (default:100)')
+                    help='training epoch (default : 100)')
 
-parser.add_argument('--train',
-                    action='store_true',
-                    default=True,
-                    help='eval of train set(default:True)')
+config = parser.parse_args()
 
-parser.add_argument('--test',
-                    action='store_true'
-                    default=False,
-                    help='eval of test set(default:false)')
-
-parser.add_argument('--print',
-                    action='store_true',
-                    default=True,
-                    help='print the progress(default:True)')
-
-train_loader = data.DataLoader(batch_size='--batch-size')
-test_loader = data.DataLoader(batch_size='--batch-size')
-
-
+if __name__=='__main__':
+    tr = Trainer(config)
+    tr.progress()
